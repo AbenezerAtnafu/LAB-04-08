@@ -3,7 +3,7 @@ function User(name, accountNumber, balance, isAdmin = false) {
   this.name = name;
   this.accountNumber = accountNumber;
   this.balance = balance;
-  this.isAdmin = isAdmin;
+  this.isAdmin = isAdmin; // by default it is not an admin
 
   // getters
   this.getIsAdmin = function () {

@@ -1,4 +1,4 @@
-const abene = new User("Abene", 12345, 20000);
+const abene = new User("Abene", 12345, 20000, true);
 const semere = new User("Semere", 67890, 10);
 const fre = new User("Fre", 88955, 24000);
 
@@ -13,6 +13,11 @@ const getUser = function (accountNumber) {
     return user.accountNumber == parseInt(accountNumber);
   });
 };
+
+/**
+ * @param accountNumber
+ * @return User
+ */
 
 const checkAdmin = function (accountNumber) {
   const user = getUser(accountNumber);
@@ -163,11 +168,10 @@ const adminTransfer = function () {
     }
   } while (check);
 
-  // entering amount
   const amount = prompt(
     `Enter the amount that you want to transfer to : ${receiver.getName()}`
   );
-  const transfer = bank.transfer(sender, receiver, amount);
+  let transfer = bank.transfer(sender, receiver, amount);
   do {
     if (transfer) {
       alert(
@@ -203,6 +207,26 @@ const adminWithdraw = function () {
   }
 };
 
+const adminDeposit = function () {
+  let user;
+  let accountNumber;
+  do {
+    accountNumber = prompt("Enter customer's bank account or 1 to exit: ");
+    user = getUser(accountNumber);
+    if (accountNumber == "1") continue;
+    if (!user) alert("There is no account. Try again.");
+  } while (!user);
+
+  const amount = prompt(
+    `This account belongs to ${user.getName()} and its balance is ${user.getBalance()} Enter the amount you want to withdraw: `
+  );
+  bank.deposit(user, amount);
+
+  alert(
+    `${user.getName()} credited ${amount} br and it's current balance is ${user.getBalance()}`
+  );
+};
+
 /**
  *  Starter function
  **/
@@ -236,16 +260,16 @@ const loggedInAdmin = function (user) {
     );
     switch (choice) {
       case "1":
-        checkBalance();
+        adminCheckBalance();
         break;
       case "2":
-        transfer();
+        adminTransfer();
         break;
       case "3":
-        withDraw();
+        adminWithdraw();
         break;
       case "4":
-        deposit();
+        adminDeposit();
         break;
     }
   } while (choice !== "5");
@@ -255,13 +279,18 @@ const loggedInAdmin = function (user) {
   let accountNumber;
   do {
     accountNumber = prompt(
-      "Hint: Use this Account numbers \n 1. 1234 \n 2. 456 \n 3. 8895 \n 4. To Exit \n \n Login page \n Enter your account number"
+      "Hint: Use this Account numbers \n 1. 12345(Admin) \n 2. 67890 \n 3. 88955 \n 4. To Exit \n \n Login page \n Enter your account number"
     );
     if (accountNumber === "4") continue;
     const user = getUser(accountNumber);
     if (user) {
-      loggedInUserAcc = user;
-      loggedInUserAcc(loggedInUserAcc);
+      if (user.getIsAdmin()) {
+        //const choice = prompt("Choose account: ")
+        loggedInAdmin(user);
+      } else {
+        loggedInUserAcc = user;
+        loggedInUser(loggedInUserAcc);
+      }
     } else {
       alert(`Account number "${accountNumber}" number doesn't exist.`);
     }
