@@ -1,22 +1,22 @@
 function Bank() {
   this.deposit = function (user, amount) {
     // update balance
-    const currentBalance = user.getBalance() + amount;
+    const currentBalance = user.getBalance() + parseInt(amount);
     user.setBalance(currentBalance);
     return user.getBalance();
   };
-  this.withdraw = function (user, amount) {
+  this.withDraw = function (user, amount) {
     const currentBalance = user.getBalance();
-    if (currentBalance < amount) return false;
-    user.setBalance(currentBalance - amount);
+    if (currentBalance < parseInt(amount)) return false;
+    user.setBalance(currentBalance - parseInt(amount));
     return true;
   };
   this.transfer = function (user, receiver, amount) {
     const senderBalance = user.getBalance();
     const receiverBalance = user.getBalance();
-    if (senderBalance < amount) return false;
-    const balance = receiverBalance + amount;
-    const remainingBalance = senderBalance - amount;
+    if (senderBalance < parseInt(amount)) return false;
+    const balance = receiverBalance + parseInt(amount);
+    const remainingBalance = senderBalance - parseInt(amount);
     receiver.setBalance(balance);
     user.setBalance(remainingBalance);
     return true;
