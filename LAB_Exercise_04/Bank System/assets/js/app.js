@@ -1,8 +1,8 @@
 const abene = new User("Abene", 12345, 20000, true);
 const semere = new User("Semere", 67890, 10);
-const fre = new User("Fre", 88955, 24000);
+const miky = new User("Miky", 88955, 24000);
 
-const users = [abene, semere, fre];
+const users = [abene, semere, miky];
 const bank = new Bank();
 
 let loggedInUserAcc;
@@ -15,8 +15,8 @@ const getUser = function (accountNumber) {
 };
 
 /**
- * @param accountNumber
- * @return User
+ * @param {Number} accountNumber
+ * @returns {User}
  */
 
 const checkAdmin = function (accountNumber) {
@@ -26,6 +26,11 @@ const checkAdmin = function (accountNumber) {
   }
 };
 
+/**
+ * @param {Number} accountNumber
+ * @returns {boolean}
+ */
+
 const doesAccountNumberExist = function (accountNumber) {
   let exist = false;
   users.forEach(function (user) {
@@ -34,6 +39,9 @@ const doesAccountNumberExist = function (accountNumber) {
   return exist;
 };
 
+/**
+ * @returns {boolean}
+ */
 const createUser = function () {
   let accountNumber;
   let found;
@@ -52,6 +60,11 @@ const createUser = function () {
  *  Users function
  **/
 
+/**
+ * @param
+ * @returns
+ */
+
 function checkBalance() {
   alert(
     `Dear ${loggedInUserAcc.getName()}, your current balance is ${loggedInUserAcc.getBalance()}`
@@ -61,6 +74,7 @@ function checkBalance() {
 function transfer() {
   const receiverNumber = prompt("Enter receiver's account number: ");
   const receiver = getUser(receiverNumber);
+
   if (receiver) {
     const amount = prompt(
       `Enter the amount that you want to transfer to : ${receiver.getName()}`
@@ -68,7 +82,7 @@ function transfer() {
     const transfer = bank.transfer(loggedInUserAcc, receiver, amount);
     if (transfer) {
       alert(
-        `You transferred ${amount} birr for ${receiver.getName()} and your remaining balance is ${receiver.getBalance()}.`
+        `You transferred ${amount} birr for ${receiver.getName()} and your remaining balance is ${loggedInUserAcc.getBalance()} birr.`
       );
     } else {
       alert(
@@ -120,6 +134,7 @@ const adminCheckBalance = function () {
 const adminTransfer = function () {
   let sender;
   let receiver;
+  let transfer;
   let check = false;
 
   // checking user
@@ -153,58 +168,62 @@ const adminTransfer = function () {
       check = false;
     }
     let user = getUser(receiverAccount);
-    if (!user) {
+    if (user) {
+      if (user.getAccountNumber() === sender.getAccountNumber()) {
+        check = true;
+        alert("Can't make transfer between same accounts.");
+      } else {
+        receiver = user;
+        check = false;
+      }
+    } else {
       check = true;
       alert("Account Number doesn't exist. Try again!");
-    } else if (user) {
-      receiver = user;
-      check = false;
-    }
-    if (receiver.getAccountNumber() === sender.getAccountNumber()) {
-      check = true;
-      alert("Can't make transfer between same accounts.");
-    } else {
-      check = false;
     }
   } while (check);
 
-  const amount = prompt(
-    `Enter the amount that you want to transfer to : ${receiver.getName()}`
-  );
-  let transfer = bank.transfer(sender, receiver, amount);
   do {
+    const amount = prompt(
+      `Enter the amount that you want to transfer to : ${receiver.getName()}`
+    );
+    transfer = bank.transfer(sender, receiver, amount);
     if (transfer) {
       alert(
         `${sender.getName()} transferred ${amount} birr for ${receiver.getName()} and your remaining balance is ${sender.getBalance()}.`
       );
     } else {
-      transfer = false;
       alert(`Insufficient Balance. Your Balance is ${sender.getBalance()}`);
     }
-  } while (transfer);
+  } while (!transfer);
 };
 
 const adminWithdraw = function () {
   let user;
   let accountNumber;
+  let leftBalance;
+
   do {
     accountNumber = prompt("Enter customer's bank account: ");
     user = getUser(accountNumber);
     if (!user) alert("There is no account. Try again.");
   } while (!user);
 
-  const amount = prompt(
-    `This account belongs to ${user.getName()} and its balance is ${user.getBalance()} Enter the amount you want to withdraw: `
-  );
-
-  const leftBalance = bank.withDraw(user, amount);
-  if (leftBalance) {
-    alert(
-      `The account has ben debited ${amount} and your current balance is ${user.getBalance()}`
+  do {
+    const amount = prompt(
+      `This account belongs to ${user.getName()} and its balance is ${user.getBalance()} Enter the amount you want to withdraw: `
     );
-  } else {
-    alert(`Insufficient Balance. The current Balance is ${user.getBalance()}`);
-  }
+
+    leftBalance = bank.withDraw(user, amount);
+    if (leftBalance) {
+      alert(
+        `The account has ben debited ${amount} and your current balance is ${user.getBalance()}`
+      );
+    } else {
+      alert(
+        `Insufficient Balance. The current Balance is ${user.getBalance()}`
+      );
+    }
+  } while (!leftBalance);
 };
 
 const adminDeposit = function () {
@@ -218,7 +237,7 @@ const adminDeposit = function () {
   } while (!user);
 
   const amount = prompt(
-    `This account belongs to ${user.getName()} and its balance is ${user.getBalance()} Enter the amount you want to withdraw: `
+    `This account belongs to ${user.getName()} and its balance is ${user.getBalance()} Enter the amount you want to deposit: `
   );
   bank.deposit(user, amount);
 
@@ -238,7 +257,6 @@ const loggedInUser = function (user) {
     switch (choice) {
       case "1":
         checkBalance();
-        console.log(choice);
         break;
       case "2":
         transfer();
@@ -281,7 +299,7 @@ const loggedInAdmin = function (user) {
     accountNumber = prompt(
       "Hint: Use this Account numbers \n 1. 12345(Admin) \n 2. 67890 \n 3. 88955 \n 4. To Exit \n \n Login page \n Enter your account number"
     );
-    if (accountNumber === "4") continue;
+    if (accountNumber === "4") break;
     const user = getUser(accountNumber);
     if (user) {
       if (user.getIsAdmin()) {

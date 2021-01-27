@@ -1,0 +1,93 @@
+{
+  "donors": [
+    {
+      "_id": "1234567890",
+      "name": "Abenezer",
+      "blood_type": "A+",
+      "address": "Addis Ababa",
+      "phone_number": "0946414257",
+      "password": "12345",
+      "points": "350",
+      "can_donate": false,
+      "schedule_appointments": [
+        {
+          "_appoint_id": "fasn24341",
+          "is_active": false
+        }
+      ],
+      "donations": [
+        {
+          "_donation_id": "00935358",
+          "_appointment_id": "9432874",
+          "_donation_center_id": "don_cen_234",
+          "date": "Jan 23 2020",
+          "place": "Addis Ababa"
+        },
+        {
+          "_donation_id": "00935358",
+          "_appointment_id": "9432874",
+          "_donation_center_id": "don_cen_234",
+          "date": "Jan 23 2020",
+          "place": "Addis Ababa"
+        },
+        {
+          "_donation_id": "00935358",
+          "_appointment_id": "9432874",
+          "_donation_center_id": "don_cen_234",
+          "date": "Jan 23 2020",
+          "place": "Addis Ababa"
+        }
+      ],
+      "badges": [
+        {
+          "_badge_id": "587345",
+          "badge_category": "Basic",
+          "badge_point": "10",
+          "badge_name": "New year"
+        },
+        {
+          "_badge_id": "232421",
+          "badge_category": "Basic",
+          "badge_point": "20",
+          "badge_name": "Christmas"
+        }
+      ]
+    }
+  ],
+  "appointments": [
+    {
+      "_appoint_id": "fasn24341",
+      "_donor_id": "1234567890",
+      "_donation_center_id": "don_cen_234",
+      "start_date": "20 Jan 2020",
+      "end_date": "25 Jan 2020",
+      "time": ""
+    },
+    {
+      "_appoint_id": "fasn24341",
+      "_donor_id": "1234567890",
+      "_donation_center_id": "don_cen_234",
+      "start_date": "20 Jan 2020",
+      "end_date": "25 Jan 2020",
+      "time": ""
+    }
+  ],
+  "donation_centers": [
+    {
+      "_donation_center_id": "don_cen_234",
+      "name": "Red red",
+      "city": "Addis Ababa",
+      "woreda": "04",
+      "sub-city": "Arada",
+      "phone_number": "0946414257"
+    },
+    {
+      "_donation_center_id": "don_cen_234",
+      "name": "Red red",
+      "city": "Addis Ababa",
+      "woreda": "04",
+      "sub-city": "Arada",
+      "phone_number": "0946414257"
+    }
+  ]
+}

@@ -66,31 +66,37 @@ let average = function () {
 };
 
 (function () {
-  let user = prompt(
-    "Enter the service you want! \n 1.Add \n 2.Sub \n 3.Multiply \n 4.Division \n 5.Max \n 6.Min \n 7.Average"
-  );
+  let check = true;
+  do {
+    let user = prompt(
+      "Enter the service you want! \n 1.Add \n 2.Sub \n 3.Multiply \n 4.Division \n 5.Max \n 6.Min \n 7.Average"
+    );
 
-  switch (user) {
-    case "1":
-      add();
-      break;
-    case "2":
-      sub();
-      break;
-    case "3":
-      multiply();
-      break;
-    case "4":
-      divide();
-      break;
-    case "5":
-      max();
-      break;
-    case "6":
-      min();
-      break;
-    case "7":
-      average();
-      break;
-  }
+    switch (user) {
+      case "1":
+        add();
+        break;
+      case "2":
+        sub();
+        break;
+      case "3":
+        multiply();
+        break;
+      case "4":
+        divide();
+        break;
+      case "5":
+        max();
+        break;
+      case "6":
+        min();
+        break;
+      case "7":
+        average();
+        break;
+      case "8":
+        check = false;
+        break;
+    }
+  } while (check);
 })();
