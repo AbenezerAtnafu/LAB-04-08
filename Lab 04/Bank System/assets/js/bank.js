@@ -6,7 +6,9 @@ function Bank() {
   this.deposit = function (user, amount) {
     // update balance
     const currentBalance = user.getBalance() + parseInt(amount);
+    console.log(`${user.getBalance()} before deposit`);
     user.setBalance(currentBalance);
+    console.log(`${user.getBalance()} after deposit`);
     return user.getBalance();
   };
   /**
@@ -16,7 +18,9 @@ function Bank() {
   this.withDraw = function (user, amount) {
     const currentBalance = user.getBalance();
     if (currentBalance < parseInt(amount)) return false;
+    console.log(`${user.getBalance()} before withdraw`);
     user.setBalance(currentBalance - parseInt(amount));
+    console.log(`${user.getBalance()} after withdraw`);
     return true;
   };
 

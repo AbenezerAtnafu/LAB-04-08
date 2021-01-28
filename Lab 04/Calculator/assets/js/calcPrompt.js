@@ -8,7 +8,7 @@ let add = function () {
 };
 
 let sub = function () {
-  const list = prompt("Enter the numbers like this 1 + 22").split("+");
+  const list = prompt("Enter the numbers like this 1 + 22").split("-");
   let sub = list[0];
   list.forEach(function (num) {
     sub -= parseInt(num);
@@ -17,18 +17,18 @@ let sub = function () {
 };
 
 let multiply = function () {
-  const list = prompt("Enter the numbers like this 1 + 22").split("+");
-  let multiply = list[0];
+  const list = prompt("Enter the numbers like this 1 + 22").split("*");
+  let multiply = 1;
   list.forEach(function (num) {
-    multiply += parseInt(num);
+    multiply *= parseInt(num);
   });
   alert(`The result is ${multiply}`);
 };
 
 let divide = function () {
-  const list = prompt("Enter the numbers like this 1 / 22").split("/");
+  const list = prompt("Enter two numbers like this 1 / 22").split("/");
 
-  if (list[1] === 0) {
+  if (list[1] === "0") {
     alert("Denominator can't be zero");
     return;
   } else {

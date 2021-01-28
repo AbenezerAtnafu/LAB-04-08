@@ -1,6 +1,6 @@
 const abene = new User("Abene", 12345, 20000, true);
-const semere = new User("Semere", 67890, 10);
-const miky = new User("Miky", 88955, 24000);
+const semere = new User("Semere", 67890, 1000);
+const miky = new User("Miky", 23456, 24000);
 
 const users = [abene, semere, miky];
 const bank = new Bank();
@@ -297,7 +297,7 @@ const loggedInAdmin = function (user) {
   let accountNumber;
   do {
     accountNumber = prompt(
-      "Hint: Use this Account numbers \n 1. 12345(Admin) \n 2. 67890 \n 3. 88955 \n 4. To Exit \n \n Login page \n Enter your account number"
+      "Hint: Use this Account numbers \n 1. 12345(Admin) \n 2. 67890 \n 3. 23456 \n 4. To Exit \n \n Login page \n Enter your account number"
     );
     if (accountNumber === "4") break;
     const user = getUser(accountNumber);
